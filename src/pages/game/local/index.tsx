@@ -9,19 +9,23 @@ export default function LocalGame() {
     const squares = document.querySelectorAll(".sqr");
 
     const onMouseDown = (square: Element) => {
+      squares.forEach((square) => {
+        square!.classList.remove("available-move");
+      });
+
       if (!!!square.id[0] || !!!square.id[1]) return;
 
       const i = parseInt(square.id[0]);
       const j = parseInt(square.id[1]);
 
       if (boardState[i]?.[j] === "") return;
-
       const availableMoves = getAvailableMoves(boardState[i]?.[j], i, j);
 
       availableMoves.forEach((pos) => {
         const elem = document.getElementById(`${pos[0]}${pos[1]}`);
 
-        elem!.style.backgroundColor = "rgba(50, 200, 50, 0.5)";
+        if (!elem!.classList.contains("available-move"))
+          elem!.classList.add("available-move");
       });
     };
 
