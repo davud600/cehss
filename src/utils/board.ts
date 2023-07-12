@@ -88,12 +88,12 @@ export const PIECES: Pieces = {
 export const INITIAL_BOARD_STATE: Board = [
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", PIECES.WHITE_BISHOP.id, "", "", "", "", "", ""],
+  ["", PIECES.WHITE_ROOK.id, "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", PIECES.WHITE_BISHOP.id, ""],
+  ["", "", "", "", "", "", PIECES.WHITE_ROOK.id, ""],
 ];
 
 // Some helper functions related to board and pieces
@@ -177,6 +177,45 @@ export const getAvailableMoves = (
       let pos = [row - i, col + i];
 
       if (boardState[row - i]?.[col + i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+  } else if (
+    pieceId === PIECES.WHITE_ROOK.id ||
+    pieceId === PIECES.BLACK_ROOK.id
+  ) {
+    // North
+    for (let i = 0; i < row; i++) {
+      let pos = [i, col];
+
+      if (boardState[i]?.[col] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // South
+    for (let i = row + 1; i < boardState.length; i++) {
+      let pos = [i, col];
+
+      if (boardState[i]?.[col] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // West
+    for (let i = 0; i < col; i++) {
+      let pos = [row, i];
+
+      if (boardState[row]?.[i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // East
+    for (let i = col + 1; i < boardState.length; i++) {
+      let pos = [row, i];
+
+      if (boardState[row]?.[i] !== "") break;
 
       moves = [...moves, pos];
     }
