@@ -138,6 +138,10 @@ export const getAvailableMoves = (
 ): number[][] => {
   if (typeof pieceId === undefined) return [];
 
+  type PieceColor = "-w." | "-b.";
+  const pieceCol: PieceColor = pieceId?.includes("-w.") ? "-w." : "-b.";
+  const opponentCol: PieceColor = pieceCol === "-w." ? "-b." : "-w.";
+
   let moves: number[][] = [];
 
   // Bishop moves
@@ -149,7 +153,13 @@ export const getAvailableMoves = (
     for (let i = 1; i < boardState.length - Math.max(row, col); i++) {
       let pos = [row + i, col + i];
 
-      if (boardState[row + i]?.[col + i] !== "") break;
+      if (boardState[row + i]?.[col + i] !== "") {
+        if (boardState[row + i]?.[col + i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -158,7 +168,13 @@ export const getAvailableMoves = (
     for (let i = 1; i <= boardState.length - Math.min(row, col); i++) {
       let pos = [row + i, col - i];
 
-      if (boardState[row + i]?.[col - i] !== "") break;
+      if (boardState[row + i]?.[col - i] !== "") {
+        if (boardState[row + i]?.[col - i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -167,7 +183,13 @@ export const getAvailableMoves = (
     for (let i = 1; i <= Math.min(row, col); i++) {
       let pos = [row - i, col - i];
 
-      if (boardState[row - i]?.[col - i] !== "") break;
+      if (boardState[row - i]?.[col - i] !== "") {
+        if (boardState[row - i]?.[col - i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -176,7 +198,13 @@ export const getAvailableMoves = (
     for (let i = 1; i <= Math.max(row, col); i++) {
       let pos = [row - i, col + i];
 
-      if (boardState[row - i]?.[col + i] !== "") break;
+      if (boardState[row - i]?.[col + i] !== "") {
+        if (boardState[row - i]?.[col + i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -188,7 +216,13 @@ export const getAvailableMoves = (
     for (let i = row - 1; i >= 0; i--) {
       let pos = [i, col];
 
-      if (boardState[i]?.[col] !== "") break;
+      if (boardState[i]?.[col] !== "") {
+        if (boardState[i]?.[col]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -197,7 +231,13 @@ export const getAvailableMoves = (
     for (let i = row + 1; i < boardState.length; i++) {
       let pos = [i, col];
 
-      if (boardState[i]?.[col] !== "") break;
+      if (boardState[i]?.[col] !== "") {
+        if (boardState[i]?.[col]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -206,7 +246,13 @@ export const getAvailableMoves = (
     for (let i = col - 1; i >= 0; i--) {
       let pos = [row, i];
 
-      if (boardState[row]?.[i] !== "") break;
+      if (boardState[row]?.[i] !== "") {
+        if (boardState[row]?.[i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -215,7 +261,13 @@ export const getAvailableMoves = (
     for (let i = col + 1; i < boardState.length; i++) {
       let pos = [row, i];
 
-      if (boardState[row]?.[i] !== "") break;
+      if (boardState[row]?.[i] !== "") {
+        if (boardState[row]?.[i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -228,7 +280,13 @@ export const getAvailableMoves = (
     for (let i = 1; i < boardState.length - Math.max(row, col); i++) {
       let pos = [row + i, col + i];
 
-      if (boardState[row + i]?.[col + i] !== "") break;
+      if (boardState[row + i]?.[col + i] !== "") {
+        if (boardState[row + i]?.[col + i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -237,7 +295,13 @@ export const getAvailableMoves = (
     for (let i = 1; i <= boardState.length - Math.min(row, col); i++) {
       let pos = [row + i, col - i];
 
-      if (boardState[row + i]?.[col - i] !== "") break;
+      if (boardState[row + i]?.[col - i] !== "") {
+        if (boardState[row + i]?.[col - i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -246,7 +310,13 @@ export const getAvailableMoves = (
     for (let i = 1; i <= Math.min(row, col); i++) {
       let pos = [row - i, col - i];
 
-      if (boardState[row - i]?.[col - i] !== "") break;
+      if (boardState[row - i]?.[col - i] !== "") {
+        if (boardState[row - i]?.[col - i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -255,7 +325,13 @@ export const getAvailableMoves = (
     for (let i = 1; i <= Math.max(row, col); i++) {
       let pos = [row - i, col + i];
 
-      if (boardState[row - i]?.[col + i] !== "") break;
+      if (boardState[row - i]?.[col + i] !== "") {
+        if (boardState[row - i]?.[col + i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -265,7 +341,13 @@ export const getAvailableMoves = (
     for (let i = row - 1; i >= 0; i--) {
       let pos = [i, col];
 
-      if (boardState[i]?.[col] !== "") break;
+      if (boardState[i]?.[col] !== "") {
+        if (boardState[i]?.[col]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -274,7 +356,13 @@ export const getAvailableMoves = (
     for (let i = row + 1; i < boardState.length; i++) {
       let pos = [i, col];
 
-      if (boardState[i]?.[col] !== "") break;
+      if (boardState[i]?.[col] !== "") {
+        if (boardState[i]?.[col]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -283,7 +371,13 @@ export const getAvailableMoves = (
     for (let i = col - 1; i >= 0; i--) {
       let pos = [row, i];
 
-      if (boardState[row]?.[i] !== "") break;
+      if (boardState[row]?.[i] !== "") {
+        if (boardState[row]?.[i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -292,7 +386,13 @@ export const getAvailableMoves = (
     for (let i = col + 1; i < boardState.length; i++) {
       let pos = [row, i];
 
-      if (boardState[row]?.[i] !== "") break;
+      if (boardState[row]?.[i] !== "") {
+        if (boardState[row]?.[i]?.includes(opponentCol)) {
+          moves = [...moves, pos];
+        }
+
+        break;
+      }
 
       moves = [...moves, pos];
     }
@@ -305,50 +405,50 @@ export const getAvailableMoves = (
     /** -- Diagonal -- */
     // South east
     pos = [row + 1, col + 1];
-    if (boardState[row + 1]?.[col + 1] === "") {
+    if (!boardState[row + 1]?.[col + 1]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     // South west
     pos = [row + 1, col - 1];
-    if (boardState[row + 1]?.[col - 1] === "") {
+    if (!boardState[row + 1]?.[col - 1]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     // North west
     pos = [row - 1, col - 1];
-    if (boardState[row - 1]?.[col - 1] === "") {
+    if (!boardState[row - 1]?.[col - 1]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     // North east
     pos = [row - 1, col + 1];
-    if (boardState[row - 1]?.[col + 1] === "") {
+    if (!boardState[row - 1]?.[col + 1]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     /** -- Horizontal and vertical -- */
     // North
     pos = [row - 1, col];
-    if (boardState[row - 1]?.[col] === "") {
+    if (!boardState[row - 1]?.[col]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     // South
     pos = [row + 1, col];
-    if (boardState[row + 1]?.[col] === "") {
+    if (!boardState[row + 1]?.[col]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     // West
     pos = [row, col - 1];
-    if (boardState[row]?.[col - 1] === "") {
+    if (!boardState[row]?.[col - 1]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
 
     // East
     pos = [row, col + 1];
-    if (boardState[row]?.[col + 1] === "") {
+    if (!boardState[row]?.[col + 1]?.includes(pieceCol)) {
       moves = [...moves, pos];
     }
   } else if (
