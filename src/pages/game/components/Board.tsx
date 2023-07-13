@@ -31,6 +31,26 @@ export function Board() {
       const pieceToSelect = getPieceById(gameState.boardState[i]?.[j]);
       if (!!!pieceToSelect) return;
 
+      // If selectedPiece is set
+      if (!!gameState.selectedPiece) {
+        if (isMoveAvailable(gameState.selectedPiece.availableMoves, i, j)) {
+          makeMove(
+            {
+              row: gameState.selectedPiece.row,
+              col: gameState.selectedPiece.col,
+            },
+            { row: i, col: j }
+          );
+
+          return;
+        }
+
+        resetSelectedPiece();
+
+        return;
+      }
+
+      // selectedPiece not set
       const availableMoves = getAvailableMoves(
         gameState.boardState,
         gameState.boardState[i]?.[j],
