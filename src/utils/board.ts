@@ -405,51 +405,91 @@ export const getAvailableMoves = (
     /** -- Diagonal -- */
     // South east
     pos = [row + 1, col + 1];
-    if (!boardState[row + 1]?.[col + 1]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row + 1]?.[col + 1]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     // South west
     pos = [row + 1, col - 1];
-    if (!boardState[row + 1]?.[col - 1]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row + 1]?.[col - 1]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     // North west
     pos = [row - 1, col - 1];
-    if (!boardState[row - 1]?.[col - 1]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row - 1]?.[col - 1]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     // North east
     pos = [row - 1, col + 1];
-    if (!boardState[row - 1]?.[col + 1]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row - 1]?.[col + 1]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     /** -- Horizontal and vertical -- */
     // North
     pos = [row - 1, col];
-    if (!boardState[row - 1]?.[col]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row - 1]?.[col]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     // South
     pos = [row + 1, col];
-    if (!boardState[row + 1]?.[col]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row + 1]?.[col]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     // West
     pos = [row, col - 1];
-    if (!boardState[row]?.[col - 1]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row]?.[col - 1]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
 
     // East
     pos = [row, col + 1];
-    if (!boardState[row]?.[col + 1]?.includes(pieceCol)) {
-      moves = [...moves, pos];
+
+    if (pos[0] !== undefined && pos[0] < boardState.length && pos[0] >= 0) {
+      if (pos[1] !== undefined && pos[1] < boardState.length && pos[1] >= 0) {
+        if (!boardState[row]?.[col + 1]?.includes(pieceCol)) {
+          moves = [...moves, pos];
+        }
+      }
     }
   } else if (
     pieceId === PIECES.WHITE_KNIGHT.id ||
@@ -459,41 +499,65 @@ export const getAvailableMoves = (
 
     // North
     pos = [row - 2, col - 1];
-    if (boardState[row - 2]?.[col - 1] === "") {
+    if (
+      boardState[row - 2]?.[col - 1] === "" ||
+      boardState[row - 2]?.[col - 1]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
     pos = [row - 2, col + 1];
-    if (boardState[row - 2]?.[col + 1] === "") {
+    if (
+      boardState[row - 2]?.[col + 1] === "" ||
+      boardState[row - 2]?.[col + 1]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
 
     // South
     pos = [row + 2, col - 1];
-    if (boardState[row + 2]?.[col - 1] === "") {
+    if (
+      boardState[row + 2]?.[col - 1] === "" ||
+      boardState[row + 2]?.[col - 1]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
     pos = [row + 2, col + 1];
-    if (boardState[row + 2]?.[col + 1] === "") {
+    if (
+      boardState[row + 2]?.[col + 1] === "" ||
+      boardState[row + 2]?.[col + 1]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
 
     // West
     pos = [row + 1, col - 2];
-    if (boardState[row + 1]?.[col - 2] === "") {
+    if (
+      boardState[row + 1]?.[col - 2] === "" ||
+      boardState[row + 1]?.[col - 2]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
     pos = [row - 1, col - 2];
-    if (boardState[row - 1]?.[col - 2] === "") {
+    if (
+      boardState[row - 1]?.[col - 2] === "" ||
+      boardState[row - 1]?.[col - 2]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
 
     // West
     pos = [row + 1, col + 2];
-    if (boardState[row + 1]?.[col + 2] === "") {
+    if (
+      boardState[row + 1]?.[col + 2] === "" ||
+      boardState[row + 1]?.[col + 2]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
     pos = [row - 1, col + 2];
-    if (boardState[row - 1]?.[col + 2] === "") {
+    if (
+      boardState[row - 1]?.[col + 2] === "" ||
+      boardState[row - 1]?.[col + 2]?.includes(opponentCol)
+    ) {
       moves = [...moves, pos];
     }
   } else if (pieceId === PIECES.WHITE_PAWN.id) {
