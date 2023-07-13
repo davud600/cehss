@@ -91,7 +91,7 @@ export const INITIAL_BOARD_STATE: Board = [
   ["", PIECES.WHITE_ROOK.id, "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", ""],
+  ["", "", PIECES.WHITE_QUEEN.id, "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", PIECES.WHITE_ROOK.id, ""],
 ];
@@ -184,6 +184,83 @@ export const getAvailableMoves = (
     pieceId === PIECES.WHITE_ROOK.id ||
     pieceId === PIECES.BLACK_ROOK.id
   ) {
+    // North
+    for (let i = row - 1; i >= 0; i--) {
+      let pos = [i, col];
+
+      if (boardState[i]?.[col] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // South
+    for (let i = row + 1; i < boardState.length; i++) {
+      let pos = [i, col];
+
+      if (boardState[i]?.[col] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // West
+    for (let i = col - 1; i >= 0; i--) {
+      let pos = [row, i];
+
+      if (boardState[row]?.[i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // East
+    for (let i = col + 1; i < boardState.length; i++) {
+      let pos = [row, i];
+
+      if (boardState[row]?.[i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+  } else if (
+    pieceId === PIECES.WHITE_QUEEN.id ||
+    pieceId === PIECES.BLACK_QUEEN.id
+  ) {
+    /** -- Diagonal -- */
+    // South east
+    for (let i = 1; i < boardState.length - Math.max(row, col); i++) {
+      let pos = [row + i, col + i];
+
+      if (boardState[row + i]?.[col + i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // South west
+    for (let i = 1; i <= boardState.length - Math.min(row, col); i++) {
+      let pos = [row + i, col - i];
+
+      if (boardState[row + i]?.[col - i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // North west
+    for (let i = 1; i <= Math.min(row, col); i++) {
+      let pos = [row - i, col - i];
+
+      if (boardState[row - i]?.[col - i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    // North east
+    for (let i = 1; i <= Math.max(row, col); i++) {
+      let pos = [row - i, col + i];
+
+      if (boardState[row - i]?.[col + i] !== "") break;
+
+      moves = [...moves, pos];
+    }
+
+    /** -- Horizontal and vertical -- */
     // North
     for (let i = row - 1; i >= 0; i--) {
       let pos = [i, col];
