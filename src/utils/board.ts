@@ -39,62 +39,62 @@ export const PIECES: Pieces = {
   },
 };
 
-// const INITIAL_BOARD_STATE: Board = [
-//   [
-//     PIECES.BLACK_ROOK.id,
-//     PIECES.BLACK_KNIGHT.id,
-//     PIECES.BLACK_BISHOP.id,
-//     PIECES.BLACK_QUEEN.id,
-//     PIECES.BLACK_KING.id,
-//     PIECES.BLACK_BISHOP.id,
-//     PIECES.BLACK_KNIGHT.id,
-//     PIECES.BLACK_ROOK.id,
-//   ],
-//   [
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//     PIECES.BLACK_PAWN.id,
-//   ],
-//   ["", "", "", "", "", "", "", ""],
-//   ["", "", "", "", "", "", "", ""],
-//   ["", "", "", "", "", "", "", ""],
-//   ["", "", "", "", "", "", "", ""],
-//   [
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//     PIECES.WHITE_PAWN.id,
-//   ],
-//   [
-//     PIECES.WHITE_ROOK.id,
-//     PIECES.WHITE_KNIGHT.id,
-//     PIECES.WHITE_BISHOP.id,
-//     PIECES.WHITE_QUEEN.id,
-//     PIECES.WHITE_KING.id,
-//     PIECES.WHITE_BISHOP.id,
-//     PIECES.WHITE_KNIGHT.id,
-//     PIECES.WHITE_ROOK.id,
-//   ],
-// ];
 export const INITIAL_BOARD_STATE: Board = [
+  [
+    PIECES.BLACK_ROOK.id,
+    PIECES.BLACK_KNIGHT.id,
+    PIECES.BLACK_BISHOP.id,
+    PIECES.BLACK_QUEEN.id,
+    PIECES.BLACK_KING.id,
+    PIECES.BLACK_BISHOP.id,
+    PIECES.BLACK_KNIGHT.id,
+    PIECES.BLACK_ROOK.id,
+  ],
+  [
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+    PIECES.BLACK_PAWN.id,
+  ],
   ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", PIECES.WHITE_BISHOP.id, ""],
   ["", "", "", "", "", "", "", ""],
-  ["", "", PIECES.WHITE_KNIGHT.id, "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", PIECES.WHITE_KING.id, "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", PIECES.WHITE_QUEEN.id, "", "", "", "", PIECES.WHITE_ROOK.id, ""],
+  [
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+    PIECES.WHITE_PAWN.id,
+  ],
+  [
+    PIECES.WHITE_ROOK.id,
+    PIECES.WHITE_KNIGHT.id,
+    PIECES.WHITE_BISHOP.id,
+    PIECES.WHITE_QUEEN.id,
+    PIECES.WHITE_KING.id,
+    PIECES.WHITE_BISHOP.id,
+    PIECES.WHITE_KNIGHT.id,
+    PIECES.WHITE_ROOK.id,
+  ],
 ];
+// export const INITIAL_BOARD_STATE: Board = [
+//   ["", "", "", "", "", "", "", ""],
+//   ["", "", "", "", "", "", PIECES.WHITE_BISHOP.id, ""],
+//   ["", "", "", "", "", "", "", ""],
+//   ["", "", PIECES.WHITE_KNIGHT.id, "", "", "", "", ""],
+//   ["", "", "", "", "", "", "", ""],
+//   ["", "", "", "", "", PIECES.WHITE_KING.id, "", ""],
+//   ["", "", "", "", "", "", "", ""],
+//   ["", PIECES.WHITE_QUEEN.id, "", "", "", "", PIECES.WHITE_ROOK.id, ""],
+// ];
 
 // Some helper functions related to board and pieces
 export const getPieceById = (
@@ -396,6 +396,60 @@ export const getAvailableMoves = (
     if (boardState[row - 1]?.[col + 2] === "") {
       moves = [...moves, pos];
     }
+  } else if (pieceId === PIECES.WHITE_PAWN.id) {
+    let pos: number[] = [row, col];
+
+    pos = [row - 1, col];
+    if (boardState[row - 1]?.[col] === "") {
+      moves = [...moves, pos];
+    }
+
+    // 2 Step move if pawn hasn't moved yet
+    pos = [row - 2, col];
+    if (
+      row === boardState.length - 2 &&
+      boardState[row - 1]?.[col] === "" &&
+      boardState[row - 2]?.[col] === ""
+    ) {
+      moves = [...moves, pos];
+    }
+
+    // pos = [row - 1, col + 1];
+    // if (boardState[row - 1]?.[col + 1]?.includes("-b")) {
+    //   moves = [...moves, pos];
+    // }
+
+    // pos = [row - 1, col - 1];
+    // if (boardState[row - 1]?.[col - 1]?.includes("-b")) {
+    //   moves = [...moves, pos];
+    // }
+  } else if (pieceId === PIECES.BLACK_PAWN.id) {
+    let pos: number[] = [row, col];
+
+    pos = [row + 1, col];
+    if (boardState[row + 1]?.[col] === "") {
+      moves = [...moves, pos];
+    }
+
+    // 2 Step move if pawn hasn't moved yet
+    pos = [row + 2, col];
+    if (
+      row === 1 &&
+      boardState[row + 1]?.[col] === "" &&
+      boardState[row + 2]?.[col] === ""
+    ) {
+      moves = [...moves, pos];
+    }
+
+    // pos = [row + 1, col + 1];
+    // if (boardState[row + 1]?.[col + 1]?.includes("-w")) {
+    //   moves = [...moves, pos];
+    // }
+
+    // pos = [row + 1, col - 1];
+    // if (boardState[row + 1]?.[col - 1]?.includes("-w")) {
+    //   moves = [...moves, pos];
+    // }
   }
 
   return moves;
