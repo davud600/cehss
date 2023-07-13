@@ -1,4 +1,9 @@
-import { type Pieces, type Board, type Piece } from "../types/board";
+import {
+  type Pieces,
+  type Board,
+  type Piece,
+  PieceColor,
+} from "../types/board";
 
 export const PIECES: Pieces = {
   WHITE_PAWN: {
@@ -130,6 +135,49 @@ export const isMoveAvailable = (
   return available;
 };
 
+export const getColorInCheck = (boardState: Board): PieceColor | undefined => {
+  let whiteKingPos: number[] = [];
+  let blackKingPos: number[] = [];
+
+  // loop through all squares of the board and find the king of each color
+  loop1: for (let i = 0; i < boardState.length; i++) {
+    for (let j = 0; j < boardState.length; j++) {
+      if (boardState[i]?.[j] === PIECES.WHITE_KING.id) whiteKingPos = [i, j];
+      if (boardState[i]?.[j] === PIECES.BLACK_KING.id) blackKingPos = [i, j];
+    }
+  }
+
+  if (
+    !!!whiteKingPos[0] ||
+    !!!whiteKingPos[1] ||
+    !!!blackKingPos[0] ||
+    !!!blackKingPos[1]
+  )
+    return undefined;
+
+  // loop through all squares of the board and check all the available moves of each piece to check if the pos of the king (each color) is in those
+  for (let i = 0; i < boardState.length; i++) {
+    for (let j = 0; j < boardState.length; j++) {
+      if (boardState[i]?.[j] === "") continue;
+
+      const pieceId = boardState[i]?.[j];
+      const pieceAvailableMoves = getAvailableMoves(boardState, pieceId, i, j);
+
+      if (
+        isMoveAvailable(pieceAvailableMoves, whiteKingPos[0], whiteKingPos[1])
+      ) {
+        // white king is in check
+        return "-w.";
+      } else if (
+        isMoveAvailable(pieceAvailableMoves, blackKingPos[0], blackKingPos[1])
+      ) {
+        // black king is in check
+        return "-b.";
+      }
+    }
+  }
+};
+
 export const getAvailableMoves = (
   boardState: Board,
   pieceId: string | undefined,
@@ -138,7 +186,6 @@ export const getAvailableMoves = (
 ): number[][] => {
   if (typeof pieceId === undefined) return [];
 
-  type PieceColor = "-w." | "-b.";
   const pieceCol: PieceColor = pieceId?.includes("-w.") ? "-w." : "-b.";
   const opponentCol: PieceColor = pieceCol === "-w." ? "-b." : "-w.";
 

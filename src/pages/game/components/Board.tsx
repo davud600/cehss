@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import {
   getAvailableMoves,
+  getColorInCheck,
   getPieceById,
   isMoveAvailable,
 } from "~/utils/board";
@@ -86,7 +87,6 @@ export function Board() {
   const highlightMoves = (availableMoves: number[][]) => {
     availableMoves.forEach((pos) => {
       const elem = document.getElementById(`${pos[0]}${pos[1]}`);
-      console.log({ elem });
       if (!elem!.classList.contains("available-move"))
         elem!.classList.add("available-move");
     });

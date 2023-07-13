@@ -12,6 +12,8 @@ export type SelectedPiece =
     })
   | null;
 
+export type PieceColor = "-w." | "-b.";
+
 export type Pieces = {
   WHITE_PAWN: Piece;
   WHITE_QUEEN: Piece;
