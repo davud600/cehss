@@ -87,7 +87,7 @@ export const PIECES: Pieces = {
 // ];
 export const INITIAL_BOARD_STATE: Board = [
   ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", PIECES.WHITE_BISHOP.id, ""],
   ["", PIECES.WHITE_ROOK.id, "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
@@ -185,7 +185,7 @@ export const getAvailableMoves = (
     pieceId === PIECES.BLACK_ROOK.id
   ) {
     // North
-    for (let i = 0; i < row; i++) {
+    for (let i = row - 1; i >= 0; i--) {
       let pos = [i, col];
 
       if (boardState[i]?.[col] !== "") break;
@@ -203,7 +203,7 @@ export const getAvailableMoves = (
     }
 
     // West
-    for (let i = 0; i < col; i++) {
+    for (let i = col - 1; i >= 0; i--) {
       let pos = [row, i];
 
       if (boardState[row]?.[i] !== "") break;
