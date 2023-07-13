@@ -88,12 +88,12 @@ export const PIECES: Pieces = {
 export const INITIAL_BOARD_STATE: Board = [
   ["", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", PIECES.WHITE_BISHOP.id, ""],
-  ["", PIECES.WHITE_ROOK.id, "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
+  ["", "", PIECES.WHITE_KNIGHT.id, "", "", "", "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", "", PIECES.WHITE_QUEEN.id, "", "", "", "", ""],
+  ["", "", "", "", "", PIECES.WHITE_KING.id, "", ""],
   ["", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", PIECES.WHITE_ROOK.id, ""],
+  ["", PIECES.WHITE_QUEEN.id, "", "", "", "", PIECES.WHITE_ROOK.id, ""],
 ];
 
 // Some helper functions related to board and pieces
@@ -294,6 +294,106 @@ export const getAvailableMoves = (
 
       if (boardState[row]?.[i] !== "") break;
 
+      moves = [...moves, pos];
+    }
+  } else if (
+    pieceId === PIECES.WHITE_KING.id ||
+    pieceId === PIECES.BLACK_KING.id
+  ) {
+    let pos = [];
+
+    /** -- Diagonal -- */
+    // South east
+    pos = [row + 1, col + 1];
+    if (boardState[row + 1]?.[col + 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    // South west
+    pos = [row + 1, col - 1];
+    if (boardState[row + 1]?.[col - 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    // North west
+    pos = [row - 1, col - 1];
+    if (boardState[row - 1]?.[col - 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    // North east
+    pos = [row - 1, col + 1];
+    if (boardState[row - 1]?.[col + 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    /** -- Horizontal and vertical -- */
+    // North
+    pos = [row - 1, col];
+    if (boardState[row - 1]?.[col] === "") {
+      moves = [...moves, pos];
+    }
+
+    // South
+    pos = [row + 1, col];
+    if (boardState[row + 1]?.[col] === "") {
+      moves = [...moves, pos];
+    }
+
+    // West
+    pos = [row, col - 1];
+    if (boardState[row]?.[col - 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    // East
+    pos = [row, col + 1];
+    if (boardState[row]?.[col + 1] === "") {
+      moves = [...moves, pos];
+    }
+  } else if (
+    pieceId === PIECES.WHITE_KNIGHT.id ||
+    pieceId === PIECES.BLACK_KNIGHT.id
+  ) {
+    let pos: number[] = [];
+
+    // North
+    pos = [row - 2, col - 1];
+    if (boardState[row - 2]?.[col - 1] === "") {
+      moves = [...moves, pos];
+    }
+    pos = [row - 2, col + 1];
+    if (boardState[row - 2]?.[col + 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    // South
+    pos = [row + 2, col - 1];
+    if (boardState[row + 2]?.[col - 1] === "") {
+      moves = [...moves, pos];
+    }
+    pos = [row + 2, col + 1];
+    if (boardState[row + 2]?.[col + 1] === "") {
+      moves = [...moves, pos];
+    }
+
+    // West
+    pos = [row + 1, col - 2];
+    if (boardState[row + 1]?.[col - 2] === "") {
+      moves = [...moves, pos];
+    }
+    pos = [row - 1, col - 2];
+    if (boardState[row - 1]?.[col - 2] === "") {
+      moves = [...moves, pos];
+    }
+
+    // West
+    pos = [row + 1, col + 2];
+    if (boardState[row + 1]?.[col + 2] === "") {
+      moves = [...moves, pos];
+    }
+    pos = [row - 1, col + 2];
+    if (boardState[row - 1]?.[col + 2] === "") {
       moves = [...moves, pos];
     }
   }
