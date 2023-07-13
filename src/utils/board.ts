@@ -514,15 +514,15 @@ export const getAvailableMoves = (
       moves = [...moves, pos];
     }
 
-    // pos = [row - 1, col + 1];
-    // if (boardState[row - 1]?.[col + 1]?.includes("-b")) {
-    //   moves = [...moves, pos];
-    // }
+    pos = [row - 1, col + 1];
+    if (boardState[row - 1]?.[col + 1]?.includes(opponentCol)) {
+      moves = [...moves, pos];
+    }
 
-    // pos = [row - 1, col - 1];
-    // if (boardState[row - 1]?.[col - 1]?.includes("-b")) {
-    //   moves = [...moves, pos];
-    // }
+    pos = [row - 1, col - 1];
+    if (boardState[row - 1]?.[col - 1]?.includes(opponentCol)) {
+      moves = [...moves, pos];
+    }
   } else if (pieceId === PIECES.BLACK_PAWN.id) {
     let pos: number[] = [row, col];
 
@@ -541,15 +541,15 @@ export const getAvailableMoves = (
       moves = [...moves, pos];
     }
 
-    // pos = [row + 1, col + 1];
-    // if (boardState[row + 1]?.[col + 1]?.includes("-w")) {
-    //   moves = [...moves, pos];
-    // }
+    pos = [row + 1, col + 1];
+    if (boardState[row + 1]?.[col + 1]?.includes(opponentCol)) {
+      moves = [...moves, pos];
+    }
 
-    // pos = [row + 1, col - 1];
-    // if (boardState[row + 1]?.[col - 1]?.includes("-w")) {
-    //   moves = [...moves, pos];
-    // }
+    pos = [row + 1, col - 1];
+    if (boardState[row + 1]?.[col - 1]?.includes(opponentCol)) {
+      moves = [...moves, pos];
+    }
   }
 
   return moves;
